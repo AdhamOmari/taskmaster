@@ -5,10 +5,14 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     @Override
@@ -57,6 +61,21 @@ public class MainActivity extends AppCompatActivity {
             startActivity(goToTaskDetail);
         }));
 
+
+        ArrayList<Task> taskList = new ArrayList<Task>();
+        taskList.add(new Task("task1","solve your lab","inprogress"));
+        taskList.add(new Task("task2","solve your read"," complete"));
+        taskList.add(new Task("task3","solve your career"," assigned"));
+
+        RecyclerView allStudentRecyclerView = findViewById(R.id.recyclerView);
+
+        // set a layout manager
+        allStudentRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        allStudentRecyclerView.setAdapter(new TaskAdabter(taskList));
+
+
+
+
     }
     @Override
     protected void onResume() {
@@ -65,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
         String username = sharedPreferences.getString("username", "Your");
         TextView userTasks = findViewById(R.id.textView8);
         userTasks.setText(username);
+
     }
 
 }
