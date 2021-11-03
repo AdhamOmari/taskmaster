@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     @Override
@@ -67,11 +68,19 @@ public class MainActivity extends AppCompatActivity {
         taskList.add(new Task("task2","solve your read"," complete"));
         taskList.add(new Task("task3","solve your career"," assigned"));
 
+
+        List<Task> taskDb = AppDatabase.getInstance(getApplicationContext()).taskDao().getAll();
+        ArrayList<Task> tasksFromDb = new ArrayList<>();
+        for(Task task:taskDb){
+            tasksFromDb.add(task);
+        }
+
+
         RecyclerView allStudentRecyclerView = findViewById(R.id.recyclerView);
 
         // set a layout manager
         allStudentRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        allStudentRecyclerView.setAdapter(new TaskAdabter(taskList));
+        allStudentRecyclerView.setAdapter(new TaskAdabter(tasksFromDb));
 
 
 
