@@ -36,3 +36,13 @@ and in each parent activity we have back arrow to the parent
 ![image AllTasks](Capture.PNG)
 ![image AllTasks](Capture2.PNG)
 ![image AllTasks](Capture3.PNG)
+
+
+#lab29
+
+# add database store to Task data in a local database.
+#  add Room in  application, and modify Task class to be an Entity.
+# Add Task form to save the data entered in as a Task in your local database.
+#   connect the RecyclerView to display all Task entities in your database.
+![image AllTasks](addTask.PNG)
+![image AllTasks](addtaskpage.PNG)
