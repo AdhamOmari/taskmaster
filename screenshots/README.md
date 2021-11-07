@@ -46,3 +46,10 @@ and in each parent activity we have back arrow to the parent
 #   connect the RecyclerView to display all Task entities in your database.
 ![image AllTasks](addTask.PNG)
 ![image AllTasks](addtaskpage.PNG)
+
+
+## Lab: 31 - Espresso and Polish:
+
+1. Espresso Testing : Add Espresso to your application, and use it to test basic functionality of the main components of your application
+
+2. Polish : Complete any remaining feature tasks from previous days’ labs.
