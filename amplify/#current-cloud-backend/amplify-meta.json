@@ -32,11 +32,12 @@
         "GraphQLAPIEndpointOutput": "https://uc7by7pitnfqbgpqf6bh45binu.appsync-api.eu-central-1.amazonaws.com/graphql",
         "GraphQLAPIKeyOutput": "da2-pueeef6nkrf5vpgo37wfjx6maq"
       },
-      "lastPushTimeStamp": "2021-11-15T22:29:15.106Z",
+      "lastPushTimeStamp": "2021-11-16T14:41:43.196Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-taskmaster-dev-231056-deployment/amplify-cfn-templates/api/cloudformation-template.json",
         "logicalId": "apiamplifyDatasource"
-      }
+      },
+      "lastPushDirHash": "2E0fX6oUpKiXe8NMB3xSLTmlYVc="
     }
   }
 }

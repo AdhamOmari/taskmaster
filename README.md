@@ -65,4 +65,21 @@ and in each parent activity we have back arrow to the parent
   ![image AllTasks](./screenshots/lab32-2.PNG)
   ![image AllTasks](./screenshots/lab32-3.PNG)
   ![image AllTasks](./screenshots/lab32-4.PNG)
+  
 
+
+
+
+## lab33 : 
+
+
+In this lab I created a second entity for a team, 
+which has a name and a list of tasks. So, tasks will be Updated to be owned by a team.
+![image AllTasks](./screenshots/lab333-1.PNG)
+![image AllTasks](./screenshots/lab33-2.PNG)
+![image AllTasks](./screenshots/lab33-3.PNG)
+![image AllTasks](./screenshots/lab33-4.PNG)
+
+
+
+# Lab 34: Publishing to the Play Store

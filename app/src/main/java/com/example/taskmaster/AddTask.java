@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -48,22 +49,22 @@ public class AddTask extends AppCompatActivity {
 
                 EditText descriptionFiled = findViewById(R.id.descriptiondb);
                 String descr = descriptionFiled.getText().toString();
-
-
-                Toast.makeText(getApplicationContext(),"submitted!", Toast.LENGTH_SHORT).show();
-
-
-                com.amplifyframework.datastore.generated.model.Task todo = Task.builder()
-                        .title(titlefiled)
-                        .body(bodyfiled)
-                        .state(descr)
-                        .build();
-
-                Amplify.API.mutate(
-                        ModelMutation.create(todo),
-                        response -> Log.i("AddTask", "Added Todo with id: " + response.getData().getId()),
-                        error -> Log.e("AddTask", "Create failed", error)
-                );
+//
+//
+//                Toast.makeText(getApplicationContext(),"submitted!", Toast.LENGTH_SHORT).show();
+//
+//
+//                com.amplifyframework.datastore.generated.model.Task todo = Task.builder()
+//                        .title(titlefiled)
+//                        .body(bodyfiled)
+//                        .state(descr)
+//                        .build();
+//
+//                Amplify.API.mutate(
+//                        ModelMutation.create(todo),
+//                        response -> Log.i("AddTask", "Added Todo with id: " + response.getData().getId()),
+//                        error -> Log.e("AddTask", "Create failed", error)
+//                );
 //                Task task = new Task(bodyfiled, descr, titlefiled);
 //                Long addedTaskID = AppDatabase.getInstance(getApplicationContext()).taskDao().insertTask(task);
 //
@@ -73,17 +74,35 @@ public class AddTask extends AppCompatActivity {
 //
 //                );
 
-                Button backButton=findViewById(R.id.back1);
-                backButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent transferToAddTask=new Intent(AddTask.this,MainActivity.class);
-                        startActivity(transferToAddTask);
-                    }
-                });
 
+                RadioButton b1 = findViewById(R.id.radioButton);
+                RadioButton b2 = findViewById(R.id.radioButton2);
+                RadioButton b3 = findViewById(R.id.radioButton3);
+
+                String id = null;
+                if (b1.isChecked()) {
+                    id = "1";
+                } else if (b2.isChecked()) {
+                    id = "2";
+                } else if (b3.isChecked()) {
+                    id = "3";
+                }
+
+                dataStore(titlefiled, bodyfiled, descr, id);
+
+
+                Intent intent = new Intent(AddTask.this, MainActivity.class);
+                startActivity(intent);
             }
         });
+    }
+    private void dataStore(String title, String body, String state,String id) {
+        Task task = Task.builder().teamId(id).title(title).body(body).state(state).build();
+        Amplify.API.mutate(
+                ModelMutation.create(task),
+                response -> Log.i("MyAmplifyApp", "Added Todo with id: " + response.getData().getId()),
+                error -> Log.e("MyAmplifyApp", "Create failed", error)
+        );
 
 
     }

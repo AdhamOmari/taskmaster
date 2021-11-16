@@ -8,6 +8,7 @@ import android.preference.PreferenceManager;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,13 +21,36 @@ public class Settingspage extends AppCompatActivity {
         setContentView(R.layout.activity_settingspage);
 
         Button saveButton = findViewById(R.id.SaveName);
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+
         saveButton.setOnClickListener((View -> {
-            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(Settingspage.this);
-            SharedPreferences.Editor sharedPreferencesEditor = sharedPreferences.edit();
-            EditText usernameInput = findViewById(R.id.Name);
-            String username = usernameInput.getText().toString();
-            sharedPreferencesEditor.putString("username",username);
-            sharedPreferencesEditor.apply();
+            TextView text = findViewById(R.id.Name);
+            String name =text.getText().toString();
+
+
+
+            RadioButton b1=findViewById(R.id.team1);
+            RadioButton b2=findViewById(R.id.team2);
+            RadioButton b3=findViewById(R.id.team3);
+
+            String id = null;
+            if(b1.isChecked()){
+                id="1";
+            }
+            else if(b2.isChecked()){
+                id="2";
+            }
+            else if(b3.isChecked()){
+                id="3";
+            }
+
+            editor.putString("Team",id);
+            editor.putString("EnteredText",name);
+            editor.apply();
+
         }));
 
     }

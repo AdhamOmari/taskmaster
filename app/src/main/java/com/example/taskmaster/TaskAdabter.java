@@ -1,12 +1,16 @@
 package com.example.taskmaster;
 
+import android.content.Context;
 import android.content.Intent;
 
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,63 +21,72 @@ import com.amplifyframework.datastore.generated.model.Task;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TaskAdabter extends RecyclerView.Adapter<TaskAdabter.TaskViewHolder> {
-    List<com.amplifyframework.datastore.generated.model.Task> listTask = new ArrayList<>();
-
-    public TaskAdabter(List<com.amplifyframework.datastore.generated.model.Task> listTask) {
-        this.listTask = listTask;
-    }
-
-    public static class TaskViewHolder extends RecyclerView.ViewHolder {
-
-        public Task task;
-        View itemview;
-
-        public TaskViewHolder(@NonNull View itemView) {
-            super(itemView);
-            this.itemview = itemView;
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Log.i("my Adapter", "Element "+ getAdapterPosition() + " clicked");
-                    Intent goToTask = new Intent(view.getContext(), Taskdetail.class);
-                    goToTask.putExtra("taskName",task.getTitle());
-                    goToTask.putExtra("body",task.getBody());
-                    goToTask.putExtra("state",task.getState());
-                    view.getContext().startActivity(goToTask);
-                }
-            });
-
-        }
+public class TaskAdabter extends RecyclerView.Adapter<TaskAdabter.ViewHolder> {
+    List<Task> allTasksData = new ArrayList<>();
 
 
+    public TaskAdabter(List<Task> allTasksData) {
+        this.allTasksData = allTasksData;
     }
 
     @NonNull
     @Override
-    public TaskViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_task, viewGroup , false);
-        return new TaskViewHolder(view);
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent , false);
+        return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TaskViewHolder taskViewHolder, int i) {
-        taskViewHolder.task=listTask.get(i);
-        TextView title = taskViewHolder.itemView.findViewById(R.id.titlefra);
-        TextView body = taskViewHolder.itemView.findViewById(R.id.body);
-        TextView state = taskViewHolder.itemView.findViewById(R.id.state);
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
+        Context context = viewHolder.itemView.getContext();
 
-        title.setText(taskViewHolder.task.getTitle());
-        body.setText(taskViewHolder.task.getBody());
-        state.setText(taskViewHolder.task.getState());
+        Task task= allTasksData.get(position);
+        viewHolder.textViewTitle.setText(task.getTitle());
+        viewHolder.textViewBody.setText(task.getBody());
+        viewHolder.textViewState.setText(task.getState());
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        viewHolder.linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("my Adapter", "Element "+ viewHolder.getAdapterPosition() + " clicked");
+
+                String Task1 =viewHolder.textViewTitle.getText().toString();
+                editor.putString("TaskName",Task1);
+                editor.apply();
+                Intent gotToStd = new Intent(context,Taskdetail.class);
+                context.startActivity(gotToStd);
+
+            }
+
+
+        });
 
     }
 
     @Override
     public int getItemCount() {
-        return listTask.size();
+        return allTasksData.size();
     }
+
+    public class ViewHolder extends RecyclerView.ViewHolder{
+
+        public TextView textViewTitle;
+        public TextView textViewBody;
+        public TextView textViewState;
+        public LinearLayout linearLayout;
+
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            textViewTitle= (TextView)  itemView.findViewById(R.id.title);
+            textViewBody= (TextView)  itemView.findViewById(R.id.body);
+            textViewState= (TextView)  itemView.findViewById(R.id.state);
+            linearLayout=(LinearLayout) itemView.findViewById(R.id.layout);
+
+        }
+    }
+
 
 
 }

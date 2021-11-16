@@ -22,9 +22,9 @@ public class TaskFragment extends Fragment {
     private static final String ARG_PARAM3 = "state";
 
     // TODO: Rename and change types of parameters
-    private String mtitle;
-    private String mbody;
-    private String mstate;
+    private String title;
+    private String body;
+    private String state;
 
 
     public TaskFragment() {
@@ -55,9 +55,9 @@ public class TaskFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mtitle = getArguments().getString(ARG_PARAM1);
-            mbody = getArguments().getString(ARG_PARAM2);
-            mstate = getArguments().getString(ARG_PARAM3);
+            title = getArguments().getString(ARG_PARAM1);
+            body = getArguments().getString(ARG_PARAM2);
+            state = getArguments().getString(ARG_PARAM3);
         }
     }
 
