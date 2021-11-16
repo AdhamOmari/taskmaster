@@ -1,10 +1,95 @@
 # this is an auto generated file. This will be overwritten
+subscription OnCreateTeam {
+  onCreateTeam {
+    id
+    name
+    tasks {
+      items {
+        id
+        teamId
+        title
+        body
+        state
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      nextToken
+      startedAt
+    }
+    _version
+    _deleted
+    _lastChangedAt
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateTeam {
+  onUpdateTeam {
+    id
+    name
+    tasks {
+      items {
+        id
+        teamId
+        title
+        body
+        state
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      nextToken
+      startedAt
+    }
+    _version
+    _deleted
+    _lastChangedAt
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteTeam {
+  onDeleteTeam {
+    id
+    name
+    tasks {
+      items {
+        id
+        teamId
+        title
+        body
+        state
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      nextToken
+      startedAt
+    }
+    _version
+    _deleted
+    _lastChangedAt
+    createdAt
+    updatedAt
+  }
+}
 subscription OnCreateTask {
   onCreateTask {
     id
+    teamId
     title
-    description
-    status
+    body
+    state
+    _version
+    _deleted
+    _lastChangedAt
     createdAt
     updatedAt
   }
@@ -12,9 +97,13 @@ subscription OnCreateTask {
 subscription OnUpdateTask {
   onUpdateTask {
     id
+    teamId
     title
-    description
-    status
+    body
+    state
+    _version
+    _deleted
+    _lastChangedAt
     createdAt
     updatedAt
   }
@@ -22,33 +111,46 @@ subscription OnUpdateTask {
 subscription OnDeleteTask {
   onDeleteTask {
     id
+    teamId
     title
-    description
-    status
+    body
+    state
+    _version
+    _deleted
+    _lastChangedAt
     createdAt
     updatedAt
   }
 }
-subscription OnCreateNote {
-  onCreateNote {
+subscription OnCreateUser {
+  onCreateUser {
     id
-    content
+    name
+    _version
+    _deleted
+    _lastChangedAt
     createdAt
     updatedAt
   }
 }
-subscription OnUpdateNote {
-  onUpdateNote {
+subscription OnUpdateUser {
+  onUpdateUser {
     id
-    content
+    name
+    _version
+    _deleted
+    _lastChangedAt
     createdAt
     updatedAt
   }
 }
-subscription OnDeleteNote {
-  onDeleteNote {
+subscription OnDeleteUser {
+  onDeleteUser {
     id
-    content
+    name
+    _version
+    _deleted
+    _lastChangedAt
     createdAt
     updatedAt
   }
