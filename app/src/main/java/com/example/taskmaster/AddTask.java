@@ -1,7 +1,9 @@
 package com.example.taskmaster;
 
 
+import android.content.Intent;
 import android.os.Bundle;
+
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -46,6 +48,8 @@ public class AddTask extends AppCompatActivity {
 
                 EditText descriptionFiled = findViewById(R.id.descriptiondb);
                 String descr = descriptionFiled.getText().toString();
+
+
                 Toast.makeText(getApplicationContext(),"submitted!", Toast.LENGTH_SHORT).show();
 
 
@@ -69,6 +73,14 @@ public class AddTask extends AppCompatActivity {
 //
 //                );
 
+                Button backButton=findViewById(R.id.back1);
+                backButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent transferToAddTask=new Intent(AddTask.this,MainActivity.class);
+                        startActivity(transferToAddTask);
+                    }
+                });
 
             }
         });

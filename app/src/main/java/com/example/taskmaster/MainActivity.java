@@ -24,10 +24,13 @@ import com.amplifyframework.AmplifyException;
 import com.amplifyframework.api.aws.AWSApiPlugin;
 import com.amplifyframework.api.graphql.model.ModelQuery;
 import com.amplifyframework.core.Amplify;
+import com.amplifyframework.datastore.AWSDataStorePlugin;
 import com.amplifyframework.datastore.generated.model.Task;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import kotlinx.coroutines.AwaitKt;
 
 public class MainActivity extends AppCompatActivity {
     @Override
@@ -40,16 +43,17 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        try {
 
+        try {
+             Amplify.addPlugin(new AWSDataStorePlugin());
             Amplify.addPlugin(new AWSApiPlugin());
+
             Amplify.configure(getApplicationContext());
 
             Log.i("Tutorial", "Initialized Amplify");
-        } catch (AmplifyException error) {
-            Log.e("Tutorial", "Could not initialize Amplify", error);
+        } catch (AmplifyException e) {
+            Log.e("Tutorial", "Could not initialize Amplify", e);
         }
-
 
 
         Handler handler =new Handler(Looper.getMainLooper(), new Handler.Callback() {

@@ -143,25 +143,24 @@ public final class Task implements Model {
     BuildStep body(String body);
     BuildStep state(String state);
   }
-  
 
-  public static class Builder implements TitleStep, BuildStep {
-    private String id;
-    private String title;
-    private String body;
-    private String state;
-    @Override
-     public Task build() {
-        String id = this.id != null ? this.id : UUID.randomUUID().toString();
-        
-        return new Task(
-          id,
-          title,
-          body,
-          state);
-    }
-    
-    @Override
+    public  static class Builder implements TitleStep, BuildStep {
+        private String id;
+        private String title;
+        private String body;
+        private String state;
+        @Override
+        public Task build() {
+            String id = this.id != null ? this.id : UUID.randomUUID().toString();
+
+            return new Task(
+                    id,
+                    title,
+                    body,
+                    state);
+        }
+
+        @Override
      public BuildStep title(String title) {
         Objects.requireNonNull(title);
         this.title = title;
