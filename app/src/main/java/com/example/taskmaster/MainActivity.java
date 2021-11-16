@@ -2,18 +2,35 @@ package com.example.taskmaster;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
+
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.amplifyframework.AmplifyException;
+import com.amplifyframework.api.aws.AWSApiPlugin;
+import com.amplifyframework.api.graphql.model.ModelQuery;
+import com.amplifyframework.core.Amplify;
+import com.amplifyframework.datastore.AWSDataStorePlugin;
+import com.amplifyframework.datastore.generated.model.Task;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import kotlinx.coroutines.AwaitKt;
 
 public class MainActivity extends AppCompatActivity {
     @Override
@@ -21,6 +38,61 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Button buttonOne = findViewById(R.id.button);
+        RecyclerView allTasks = findViewById(R.id.recyclerView);
+
+
+
+
+
+        try {
+             Amplify.addPlugin(new AWSDataStorePlugin());
+            Amplify.addPlugin(new AWSApiPlugin());
+
+            Amplify.configure(getApplicationContext());
+
+            Log.i("Tutorial", "Initialized Amplify");
+        } catch (AmplifyException e) {
+            Log.e("Tutorial", "Could not initialize Amplify", e);
+        }
+
+
+        Handler handler =new Handler(Looper.getMainLooper(), new Handler.Callback() {
+            @Override
+            public boolean handleMessage(@NonNull Message message) {
+                allTasks.getAdapter().notifyDataSetChanged();
+                return false;
+            }
+        });
+
+        List <Task> tasks= new ArrayList<Task>();
+
+        Amplify.API.query(
+                ModelQuery.list(com.amplifyframework.datastore.generated.model.Task.class),
+                response -> {
+                    for (Task taskTodo : response.getData()) {
+                        tasks.add(taskTodo);
+                    }
+                    handler.sendEmptyMessage(1);
+                },
+                error -> Log.e("MyAmplifyApp", error.toString(), error)
+        );
+
+        allTasks.setLayoutManager(new LinearLayoutManager(this));
+        allTasks.setAdapter(new TaskAdabter(tasks));
+
+
+        //        allStudentRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        allStudentRecyclerView.setAdapter(new TaskAdabter(tasksFromDb));
+
+
+
+
+
+
+
+
+
+
         buttonOne.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 System.out.println("Button Clicked");
@@ -29,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(activity2Intent);
             }
         });
+
         Button allTasksBtn = findViewById(R.id.button2);
         allTasksBtn.setOnClickListener(view -> {
             Intent intent1 = new Intent(MainActivity.this, AllTasks.class);
@@ -62,25 +135,24 @@ public class MainActivity extends AppCompatActivity {
             startActivity(goToTaskDetail);
         }));
 
+//
+//        ArrayList<Task> taskList = new ArrayList<Task>();
+//        taskList.add(new Task("task1","solve your lab","inprogress"));
+//        taskList.add(new Task("task2","solve your read"," complete"));
+//        taskList.add(new Task("task3","solve your career"," assigned"));
+//
+//
+//        List<Task> taskDb = AppDatabase.getInstance(getApplicationContext()).taskDao().getAll();
+//        ArrayList<Task> tasksFromDb = new ArrayList<>();
+//        for(Task task:taskDb){
+//            tasksFromDb.add(task);
+//        }
 
-        ArrayList<Task> taskList = new ArrayList<Task>();
-        taskList.add(new Task("task1","solve your lab","inprogress"));
-        taskList.add(new Task("task2","solve your read"," complete"));
-        taskList.add(new Task("task3","solve your career"," assigned"));
 
-
-        List<Task> taskDb = AppDatabase.getInstance(getApplicationContext()).taskDao().getAll();
-        ArrayList<Task> tasksFromDb = new ArrayList<>();
-        for(Task task:taskDb){
-            tasksFromDb.add(task);
-        }
-
-
-        RecyclerView allStudentRecyclerView = findViewById(R.id.recyclerView);
 
         // set a layout manager
-        allStudentRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        allStudentRecyclerView.setAdapter(new TaskAdabter(tasksFromDb));
+//        allStudentRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        allStudentRecyclerView.setAdapter(new TaskAdabter(tasksFromDb));
 
 
 

@@ -1,10 +1,12 @@
 package com.example.taskmaster;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.fragment.app.Fragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,9 +22,9 @@ public class TaskFragment extends Fragment {
     private static final String ARG_PARAM3 = "state";
 
     // TODO: Rename and change types of parameters
-    private String title;
-    private String body;
-    private String state;
+    private String mtitle;
+    private String mbody;
+    private String mstate;
 
 
     public TaskFragment() {
@@ -53,9 +55,9 @@ public class TaskFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            title = getArguments().getString(ARG_PARAM1);
-            body = getArguments().getString(ARG_PARAM2);
-            state = getArguments().getString(ARG_PARAM3);
+            mtitle = getArguments().getString(ARG_PARAM1);
+            mbody = getArguments().getString(ARG_PARAM2);
+            mstate = getArguments().getString(ARG_PARAM3);
         }
     }
 
