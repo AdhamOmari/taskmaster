@@ -83,3 +83,15 @@ which has a name and a list of tasks. So, tasks will be Updated to be owned by a
 
 
 # Lab 34: Publishing to the Play Store
+
+
+## ## Lab 36: Cognito
+
+![image AllTasks](./screenshots/lab36.PNG)
+![image AllTasks](./screenshots/lab36-2.PNG)
+![image AllTasks](./screenshots/lab36-3.PNG)
+![image AllTasks](./screenshots/lab36-4.PNG)
+![image AllTasks](./screenshots/lab36-5.PNG)
+
+
+

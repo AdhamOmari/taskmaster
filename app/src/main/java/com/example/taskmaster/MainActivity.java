@@ -25,6 +25,7 @@ import com.amplifyframework.AmplifyException;
 import com.amplifyframework.api.aws.AWSApiPlugin;
 import com.amplifyframework.api.graphql.model.ModelMutation;
 import com.amplifyframework.api.graphql.model.ModelQuery;
+import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin;
 import com.amplifyframework.core.Amplify;
 import com.amplifyframework.datastore.AWSDataStorePlugin;
 import com.amplifyframework.datastore.generated.model.Task;
@@ -163,6 +164,29 @@ public class MainActivity extends AppCompatActivity {
             startActivity(goToTaskDetail);
         }));
 
+        Button signInBbutton = findViewById(R.id.signin);
+
+        signInBbutton.setOnClickListener(view -> {
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+        });
+
+        Button signUpButton = findViewById(R.id.signup);
+        signUpButton.setOnClickListener(view -> {
+            Intent intent = new Intent(this, JoinActivity.class);
+            startActivity(intent);
+        });
+
+        Button signOutButton = findViewById(R.id.signout);
+        signOutButton.setOnClickListener(view -> {
+            Amplify.Auth.signOut(
+                    () -> Log.i("AuthQuickstart", "Signed out successfully"),
+                    error -> Log.e("AuthQuickstart", error.toString())
+            );
+        });
+    }
+
+
 //
 //        ArrayList<Task> taskList = new ArrayList<Task>();
 //        taskList.add(new Task("task1","solve your lab","inprogress"));
@@ -185,7 +209,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    }
+
 
 
     private void configureAmplify() {
@@ -193,6 +217,8 @@ public class MainActivity extends AppCompatActivity {
 
             Amplify.addPlugin(new AWSDataStorePlugin());
             Amplify.addPlugin(new AWSApiPlugin());
+            Amplify.addPlugin(new AWSCognitoAuthPlugin());
+
             Amplify.configure(getApplicationContext());
             Log.i("Main", "Initialized Amplify");
         } catch (AmplifyException error) {
