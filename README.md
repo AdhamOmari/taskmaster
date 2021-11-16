@@ -54,3 +54,32 @@ and in each parent activity we have back arrow to the parent
 1. Espresso Testing : Add Espresso to your application, and use it to test basic functionality of the main components of your application
 
 2. Polish : Complete any remaining feature tasks from previous days’ labs.
+
+
+
+## Lab 32 :
+* Using the amplify add api command, create a Task resource that replicates our existing Task schema. Update all references to the Task data to instead use AWS Amplify to access your data in DynamoDB instead of in Room.
+* Modify your Add Task form to save the data entered in as a Task to DynamoDB.
+* Refactor your homepage’s RecyclerView to display all Task entities in DynamoDB.
+  ![image AllTasks](./screenshots/lab32-1.PNG)
+  ![image AllTasks](./screenshots/lab32-2.PNG)
+  ![image AllTasks](./screenshots/lab32-3.PNG)
+  ![image AllTasks](./screenshots/lab32-4.PNG)
+  
+
+
+
+
+## lab33 : 
+
+
+In this lab I created a second entity for a team, 
+which has a name and a list of tasks. So, tasks will be Updated to be owned by a team.
+![image AllTasks](./screenshots/lab333-1.PNG)
+![image AllTasks](./screenshots/lab33-2.PNG)
+![image AllTasks](./screenshots/lab33-3.PNG)
+![image AllTasks](./screenshots/lab33-4.PNG)
+
+
+
+# Lab 34: Publishing to the Play Store
